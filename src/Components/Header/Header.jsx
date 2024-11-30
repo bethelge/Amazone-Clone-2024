@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Header.module.css";
+import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { SlLocationPin } from "react-icons/sl";
 import { BiCart } from "react-icons/bi";
@@ -12,12 +13,12 @@ function Header() {
         <div className={classes.header__container}>
           {/* Logo Section */}
           <div className={classes.logo__container}>
-            <a href="/">
+            <Link to="/">
               <img
                 src="https://pngimg.com/uploads/amazon/amazon_PNG11.png"
                 alt="amazon logo"
               />
-            </a>
+            </Link>
             {/* delivery */}
             <div className={classes.delivery}>
               <span>
@@ -38,7 +39,7 @@ function Header() {
             <BsSearch size={25} />
           </div>
           <div className={classes.order__container}>
-            <a href="" className={classes.language}>
+            <Link to="" className={classes.language}>
               <img
                 src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1024px-Flag_of_the_United_States.svg.png"
                 alt=""
@@ -46,31 +47,30 @@ function Header() {
               <select name="" id="">
                 <option value="">EN</option>
               </select>
-            </a>
+            </Link>
 
             {/* three Components */}
-            <a href="">
+            <Link to="/auth">
               <div>
-                <p>Sign in</p>
+                <p>Sign up</p>
                 <span>Account & Lists</span>
               </div>
-            </a>
+            </Link>
             {/* orders */}
-            <a href="">
+            <Link to="/orders">
               <p>returns</p>
               <span>& Orders</span>
-            </a>
+            </Link>
             {/* cart */}
-            <a href="" className={classes.cart}>
+            <Link to="/cart" className={classes.cart}>
               <BiCart size={35} />
               <span>0</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
-      <LowerHeader/>
+      <LowerHeader />
     </>
   );
 }
-
 export default Header;
