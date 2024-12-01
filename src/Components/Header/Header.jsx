@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useContext } from "react";
 import classes from "./Header.module.css";
 import { Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { SlLocationPin } from "react-icons/sl";
 import { BiCart } from "react-icons/bi";
 import LowerHeader from "./LowerHeader";
+import { DataContext } from "../DataProvider/DataProvider";
 
 function Header() {
+  const [state, dispatch] = useContext(DataContext); // Use 'state' to reflect the structure
+  const basket = state.basket; // Access the basket array
+
+  console.log("Basket:", state);
+  console.log("Basket Length:", basket.length);
+
   return (
-    <>
+    <section className= {classes.fixed}>
       <section>
         <div className={classes.header__container}>
           {/* Logo Section */}
@@ -19,7 +26,7 @@ function Header() {
                 alt="amazon logo"
               />
             </Link>
-            {/* delivery */}
+            {/* Delivery */}
             <div className={classes.delivery}>
               <span>
                 <SlLocationPin />
@@ -30,7 +37,7 @@ function Header() {
               </div>
             </div>
           </div>
-          {/* search */}
+          {/* Search */}
           <div className={classes.search}>
             <select name="" id="">
               <option value="">All</option>
@@ -49,28 +56,30 @@ function Header() {
               </select>
             </Link>
 
-            {/* three Components */}
+            {/* Three Components */}
             <Link to="/auth">
               <div>
                 <p>Sign up</p>
                 <span>Account & Lists</span>
               </div>
             </Link>
-            {/* orders */}
+            {/* Orders */}
             <Link to="/orders">
-              <p>returns</p>
+              <p>Returns</p>
               <span>& Orders</span>
             </Link>
-            {/* cart */}
+            {/* Cart */}
             <Link to="/cart" className={classes.cart}>
               <BiCart size={35} />
-              <span>0</span>
+              <span>{basket.length}</span> {/* Access the correct basket array */}
             </Link>
           </div>
         </div>
       </section>
       <LowerHeader />
-    </>
+    </section>
   );
 }
+
 export default Header;
+

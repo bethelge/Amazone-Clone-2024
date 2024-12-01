@@ -5,10 +5,11 @@ import LayOut from "../../Components/LayOut/LayOut";
 import classes from "./Results.module.css";
 import ProductCard from "../../Components/Product/ProductCard";
 import { productUrl } from "../../Api/endPoints";
+import Loader from "../../Components/Loader/Loader";
 
 function Results() {
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { categoryName } = useParams();
 
@@ -52,13 +53,10 @@ function Results() {
         <h1 style={{ padding: "30px" }}>Results</h1>
         <p style={{ padding: "30px" }}>Category/{categoryName}</p>
         <hr />
-        {error && <p style={{ color: "red", padding: "20px" }}>{error}</p>}
-        {loading ? (
-          <p style={{ padding: "20px" }}>Loading...</p>
-        ) : results.length === 0 ? (
-          <p style={{ padding: "20px" }}>
-            No products found for this category.
-          </p>
+
+      
+       { isLoading ? (
+        <Loader/>
         ) : (
           <div className={classes.products_container}>
             {results.map((product) => (
