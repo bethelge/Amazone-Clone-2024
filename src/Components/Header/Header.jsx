@@ -13,6 +13,10 @@ function Header() {
 
   console.log("Basket:", state);
   console.log("Basket Length:", basket.length);
+  const totalItem = basket?.reduce((amount,item)=>{
+    return item.amount +amount 
+
+  },0)
 
   return (
     <section className= {classes.fixed}>
@@ -71,7 +75,7 @@ function Header() {
             {/* Cart */}
             <Link to="/cart" className={classes.cart}>
               <BiCart size={35} />
-              <span>{basket.length}</span> {/* Access the correct basket array */}
+              <span>{totalItem}</span> {/* Access the correct basket array */}
             </Link>
           </div>
         </div>
