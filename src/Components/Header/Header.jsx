@@ -6,20 +6,20 @@ import { SlLocationPin } from "react-icons/sl";
 import { BiCart } from "react-icons/bi";
 import LowerHeader from "./LowerHeader";
 import { DataContext } from "../DataProvider/DataProvider";
+import { auth } from "../../Utility/firebase/";
 
-function Header() {
-  const [state, dispatch] = useContext(DataContext); // Use 'state' to reflect the structure
-  const basket = state.basket; // Access the basket array
+const Header = () => {
+  const [{ user, basket }, dispatch] = useContext(DataContext); // Use 'state' to reflect the structure
+  // const basket = state.basket; // Access the basket array
 
-  console.log("Basket:", state);
-  console.log("Basket Length:", basket.length);
-  const totalItem = basket?.reduce((amount,item)=>{
-    return item.amount +amount 
-
-  },0)
+  // console.log("Basket:", state);
+  // console.log("Basket Length:", basket.length);
+  const totalItem = basket?.reduce((amount, item) => {
+    return item.amount + amount;
+  }, 0);
 
   return (
-    <section className= {classes.fixed}>
+    <section className={classes.fixed}>
       <section>
         <div className={classes.header__container}>
           {/* Logo Section */}
@@ -47,7 +47,7 @@ function Header() {
               <option value="">All</option>
             </select>
             <input type="text" />
-            <BsSearch size={25} />
+            <BsSearch size={38} />
           </div>
           <div className={classes.order__container}>
             <Link to="" className={classes.language}>
@@ -61,10 +61,19 @@ function Header() {
             </Link>
 
             {/* Three Components */}
-            <Link to="/auth">
+            <Link to={!user && "/auth"}>
               <div>
-                <p>Sign up</p>
-                <span>Account & Lists</span>
+                {user ? (
+                  <>
+                    <p>Hello, {user?.email.split("@")[0]} </p>
+                    <span onClick={() => auth.signOut()}>Sign Out</span>
+                  </>
+                ) : (
+                  <>
+                    <p>Hello, Sign In</p>
+                    <span>Account & Lists</span>
+                  </>
+                )}
               </div>
             </Link>
             {/* Orders */}
@@ -83,7 +92,6 @@ function Header() {
       <LowerHeader />
     </section>
   );
-}
+};
 
 export default Header;
-
